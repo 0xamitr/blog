@@ -1,12 +1,13 @@
 import fs from "fs";
 import Link from "next/link";
 
-interface metadata{
+interface metadata {
   title: string,
   description: string,
   published: string,
   slug: string
 }
+
 export default async function Home() {
   const folder = fs.readdirSync(process.cwd() + "/src/content");
   const blogs: {
@@ -24,7 +25,6 @@ export default async function Home() {
     })
   );
 
-
   blogs.sort((a, b) => {
     return b.date.valueOf() - a.date.valueOf()
   })
@@ -33,22 +33,20 @@ export default async function Home() {
   console.log(top10)
 
   return (
-    <div>
-      <main className="flex flex-col items-center max-width: var(--container-7xl)">
-        <h1>BLOG</h1>
-        <ul>
-          {top10.map((blog, index) => {
-            return (
-              <Link  key = {index} href={`/${blog.matter.slug}`}><li key={blog.matter.title}>
-                <h2>{blog.matter.title}</h2>
-                <p>{blog.matter.description}</p>
-                <p>{blog.date.toDateString()}</p>
-              </li></Link>
-            )
-          })}
-        </ul>
-      </main>
-
+    <div className="min-w-1/3">
+      <h1>BLOGS</h1>
+      <ul className="p-0">
+        {top10.map((blog, index) => {
+          return (
+            <Link key={index} href={`/${blog.matter.slug}`}><li key={blog.matter.title}>
+              <h2>{blog.matter.title}</h2>
+              <p>{blog.matter.description}</p>
+              <p>{blog.date.toDateString()}</p>
+            </li>
+            </Link>
+          )
+        })}
+      </ul>
     </div>
   );
 }
