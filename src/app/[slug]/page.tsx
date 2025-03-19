@@ -1,5 +1,4 @@
 import { promises as fs } from 'fs';
-import BlogLayout from '@/bloglayout';
 
 export default async function Page({
   params,
@@ -7,7 +6,6 @@ export default async function Page({
   params: Promise<{ slug: string }>
 }) {
   const {slug} = await params
-  const fileContent = await fs.readFile(process.cwd() + '/src/content/' + slug + '.mdx', "utf8");
 
   const {default:BlogPost, metadata} = await import(`@/content/${slug}.mdx`)
   console.log(metadata)
@@ -22,7 +20,7 @@ export default async function Page({
 }
  
 export async function generateStaticParams() {
-  let filenames = await fs.readdir('src/content')
+  const filenames = await fs.readdir('src/content')
   return filenames.map((filename) => {
     return { slug: filename.replace(/\.mdx$/, '') }
   })

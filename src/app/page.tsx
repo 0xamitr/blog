@@ -1,17 +1,21 @@
 import fs from "fs";
 import Link from "next/link";
 
-
+interface metadata{
+  title: string,
+  description: string,
+  published: string,
+  slug: string
+}
 export default async function Home() {
   const folder = fs.readdirSync(process.cwd() + "/src/content");
-
   const blogs: {
     date: Date;
-    matter: any
+    matter: metadata
   }[] = await Promise.all(
     folder.map(async (file) => {
       console.log(file);
-      const { default: BlogPost, metadata } = await import(`@/content/${file}`);
+      const { metadata } = await import(`@/content/${file}`);
       console.log("metadata", metadata);
       return {
         date: new Date(metadata.published),
