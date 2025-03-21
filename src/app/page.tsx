@@ -33,16 +33,19 @@ export default async function Home() {
   console.log(top10)
 
   return (
-    <div className="min-w-1/3">
+    <div className="min-w-1/3 flex flex-col gap-5">
       <h1>BLOGS</h1>
       <ul className="p-0">
         {top10.map((blog, index) => {
           return (
-            <Link key={index} href={`/${blog.matter.slug}`}><li key={blog.matter.title}>
-              <h2>{blog.matter.title}</h2>
-              <p>{blog.matter.description}</p>
-              <p>{blog.date.toDateString()}</p>
-            </li>
+            <Link key={index} href={`/${blog.matter.slug}`}>
+              <li>
+                <div className="flex items-center">
+                  <h2>{blog.matter.title}</h2>
+                  <p className="text-sm">- {blog.date.toDateString()}</p>
+                </div>
+                <p>{blog.matter.description}</p>
+              </li>
             </Link>
           )
         })}
