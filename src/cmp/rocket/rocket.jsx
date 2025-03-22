@@ -11,7 +11,7 @@ export default function App() {
     angle: 0,
     config: config.wobbly,
   }));
-
+ 
   const bind = useDrag(
     ({ xy, previous, down, movement: pos, velocity, direction }) => {
       api.start({
