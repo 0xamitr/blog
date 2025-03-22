@@ -1,8 +1,9 @@
 import BlogLayout from "../bloglayout";
+import Rocket from '../cmp/rocket/rocket'
 
 export const metadata = {
   title: "My Blog Post",
-  description: "This is a sample blog post.",
+  description: "Trying out new things.",
   published: "03/18/2025",
   slug: "about",
 };
@@ -10,12 +11,25 @@ export const metadata = {
 <BlogLayout metadata={metadata}>
     I have been working on this blog for the past two days.
     I am using MDX to write my blog posts.
-
     **MDX** is pretty cool in a way that you combine markdown and good old JSX.
+    Although it felt overwhelming to me in the beginning there is not much to it.
 
-    Although it felt overwhelming to me in the beginning there is not much to it. I decided not to go with a CMS because why the fuck not.
+    React 19 is powerfull and with server components gives me the option to load all my content on the server.
+    I mean how would you like to have a blog that loads in less than 100ms?
+    > No API calls, no client side rendering, no javascript.
+
+    Here is the techstack:
+    - React 19
+    - NextJs
+    - MDX
+    - TailwindCSS
+
+    I had some problems in the beginning with having tailwind and using default markdown styles but [tailwind typography](https://github.com/tailwindlabs/tailwindcss-typography) came to the rescue.
+    
+    Well, lets see where mdx really shines. This Rocket that you see is not a static image but a react component. Rendered at run time. Isn't that cool?
 
 
-    React 19 is powerfull and with server components gives me the option to load all my content on the server 
+    
+    <Rocket />
 </BlogLayout>
 
