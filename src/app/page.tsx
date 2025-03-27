@@ -13,17 +13,18 @@ export default async function Home() {
   const blogs: {
     date: Date;
     matter: metadata
-  }[] = await Promise.all(
-    folder.map(async (file) => {
-      console.log(file);
-      const { metadata } = await import(`@/content/${file}`);
-      console.log("metadata", metadata);
-      return {
-        date: new Date(metadata.published),
-        matter: metadata
-      };
-    })
-  );
+  }[] = [];
+
+  for (const file of folder) {
+    console.log(file);
+    const { metadata } = await import(`@/content/${file}`);
+    if (metadata.hide) continue;
+    console.log("metadata", metadata);
+    blogs.push({
+      date: new Date(metadata.published),
+      matter: metadata
+    });
+  }
 
   blogs.sort((a, b) => {
     return b.date.valueOf() - a.date.valueOf()
