@@ -7,7 +7,7 @@ interface metadata {
 }
 
 export default function BlogLayout({ children, metadata }: { children: React.ReactNode, metadata: metadata }) {
-  return <div className="max-w-4xl ">
+  return <div className="max-w-3xl ">
     <div className="flex flex-col">
       <div>
         <h1>{metadata.title}</h1>
