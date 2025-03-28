@@ -7,6 +7,14 @@ const robotoSlab = Roboto_Slab({
   variable: "--font-roboto-slab",
 });
 
+export const metadata: Metadata = {
+  title: "blog",
+  description: "just a blog",
+  icons: {
+    icon: '/r.png',
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
