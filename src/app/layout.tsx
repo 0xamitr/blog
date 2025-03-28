@@ -1,24 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {Roboto_Slab } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const robotoSlab = Roboto_Slab({
   subsets: ["latin"],
+  variable: "--font-roboto-slab",
 });
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata: Metadata = {
-  title: "blog",
-  description: "just a blog",
-  icons: {
-    icon: '/r.png',
-  },
-};
 
 export default function RootLayout({
   children,
@@ -27,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${robotoSlab.variable} font-slab antialiased`}>
         <main className="flex flex-col items-center">
           {children}
         </main>

@@ -34,20 +34,21 @@ export default async function Home() {
   console.log(top10)
 
   return (
-    <div className="min-w-1/3 flex flex-col gap-5">
+    <div className="max-w-[760px] w-[100%] flex flex-col gap-8">
       <h1>BLOGS</h1>
-      <ul className="p-0">
+      <ul className="p-0 flex flex-col gap-3">
         {top10.map((blog, index) => {
           return (
-            <Link key={index} href={`/${blog.matter.slug}`}>
-              <li>
-                <div className="flex items-center">
+            <li key={index}>
+              <div className="flex items-center justify-between">
+                <Link className="hover:text-blue-400" href={`/${blog.matter.slug}`}>
                   <h2>{blog.matter.title}</h2>
-                  <p className="text-sm">- {blog.date.toDateString()}</p>
-                </div>
-                <p>{blog.matter.description}</p>
-              </li>
-            </Link>
+                </Link>
+
+                <p className="text-sm text-right shrink-0">- {blog.date.toDateString()}</p>
+              </div>
+              <p className="text-gray-500">{blog.matter.description}</p>
+            </li>
           )
         })}
       </ul>
