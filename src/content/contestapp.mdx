@@ -8,13 +8,20 @@ export const metadata = {
 };
 
 <BlogLayout metadata={metadata}>
-    I was tired of choosing and solving questions on leetcode or gfg. So, I thought why not start giving contests. Issentially, griding 10 questions a day to 
-    get to the top of my college ranking in gfg was kind of burning me out; contests, I thought dont require the same dedication, in terms of time that I need to invest.
+    I was getting burned out grinding LeetCode and GFG daily solving 10 questions a day just to climb my college leaderboard. It was draining.
 
-    I went to leetcode and then codeforces and then codechef and the gfg (discontinued at that time) to look for when the next contest was, and, I had an Idea.
-    So, I decided to build this app. Its a react native app, I only compile it to android because I dont care about IOS and the functionality I need (notifications, background functions) 
-    won't work on web.
+    One day, I thought: instead of mindlessly choosing questions to solve, why not switch to contests? 
+    They’re focused, time-bound, and more fun. Most importantly, they don’t require the same daily time commitment.
 
-    I made an API in go, this was my first time ever using GO and it was okay.
+    So I went to LeetCode, then Codeforces, CodeChef, and finally GFG (which had discontinued contests at the time), 
+    checking when the next contest was. That’s when the idea hit me; Why not build an app that shows all upcoming contests in one place?
+
+    I built a React Native app (Android only; I don’t care about iOS and some functionality like notifications and background tasks 
+    doesn’t work well on web anyway).
+
+    For the backend, I wrote a simple API in Go; my first time using the language. It was a solid learning experience.
+
+    Now, the app fetches contests from major platforms and sends me a notification every morning at 7AM telling me 
+    how many contests are scheduled for the day. No more jumping across sites.
 </BlogLayout>
 

@@ -15,7 +15,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <a className='text-blue-500 hover:underline' href={href}>{children}</a>
     ),
     p: ({ children }) => (
-      <p className='mt-6 first:mt-0 text-lg'>{children}</p>
+      <p className='mt-6 first:mt-0 max-w-prose '>{children}</p>
     ),
     ...components,
   }

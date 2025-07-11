@@ -40,14 +40,14 @@ export default async function Home() {
         {top10.map((blog, index) => {
           return (
             <li key={index}>
-              <div className="flex items-center justify-between">
-                <Link className="hover:text-blue-400" href={`/${blog.matter.slug}`}>
+              <Link className="hover:text-blue-400 text-2xl" href={`/${blog.matter.slug}`}>
+                <div className="flex items-center justify-between">
                   <h2>{blog.matter.title}</h2>
-                </Link>
 
-                <p className="text-sm text-right shrink-0">- {blog.date.toDateString()}</p>
-              </div>
-              <p className="text-gray-500">{blog.matter.description}</p>
+                  <p className="text-sm text-right shrink-0">- {blog.date.toDateString()}</p>
+                </div>
+                <p className="text-gray-500 text-lg">{blog.matter.description}</p>
+              </Link>
             </li>
           )
         })}
