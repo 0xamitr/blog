@@ -1,4 +1,11 @@
 import createMDX from '@next/mdx'
+/** @type {import('rehype-pretty-code').Options} */
+const options = {
+};
+
+const withMDX = createMDX({
+  // extension: /\.mdx?$/,
+})
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -7,12 +14,6 @@ const nextConfig = {
   // Optionally, add any other Next.js config below
 }
 
-const withMDX = createMDX({
-  // extension: /\.mdx?$/,
-  // options: {
-  //   remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
-  // },
-})
 
 // Merge MDX config with Next.js config
 export default withMDX(nextConfig)

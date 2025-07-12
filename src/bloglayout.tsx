@@ -13,7 +13,7 @@ export default function BlogLayout({ children, metadata }: { children: React.Rea
         <div>
           <h1 className="text-5xl">{metadata.title}</h1>
           <p className="text-gray-400 text-lg">{metadata.description}</p>
-          <p className="pt-2 text-base">- {new Date(metadata.published).toDateString()}</p>
+          <p className="pt-2 text-sm">- {new Date(metadata.published).toDateString()}</p>
           <hr className="border-gray-400 dark:border-neutral-500 mt-5 mb-10" />
         </div>
         <div>

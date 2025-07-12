@@ -1,6 +1,6 @@
 import BlogLayout from "../bloglayout";
 import Rocket from '../cmp/rocket/rocket'
-
+import Code from '../cmp/code/code'
 export const metadata = {
   title: "My Blog Post",
   description: "Trying out new things.",
@@ -27,9 +27,52 @@ export const metadata = {
     I had some problems in the beginning with having tailwind and using default markdown styles but [tailwind typography](https://github.com/tailwindlabs/tailwindcss-typography) came to the rescue.
     
     Well, lets see where mdx really shines. This Rocket that you see is not a static image but a react component. Rendered at run time. Isn't that cool?
+```js /rehypePrettyCode/
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkRehype from "remark-rehype";
+import rehypeStringify from "rehype-stringify";
+import rehypePrettyCode from "rehype-pretty-code";
 
+async function main() {
+  const file = await unified()
+    .use(remarkParse)
+    .use(remarkRehype)
+    .use(rehypePrettyCode, {
+      // See Options section below.
+    })
+    .use(rehypeStringify)
+    .process("`const numbers = [1, 2, 3]{:js}`");
 
-    
+  console.log(String(file));
+}
+
+main();
+```
+  <Code code={`
+\`\`\`tsx title="fib.tsx" showLineNumbers
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkRehype from "remark-rehype";
+import rehypeStringify from "rehype-stringify";
+import rehypePrettyCode from "rehype-pretty-code";
+ 
+async function main() {
+  const file = await unified()
+    .use(remarkParse)
+    .use(remarkRehype)
+    .use(rehypePrettyCode, {
+      // See Options section below.
+    })
+    .use(rehypeStringify)
+    .process("const numbers = [1, 2, 3]");
+ 
+  console.log(String(file));
+}
+
+\`\`\`
+`}
+/>
     <Rocket />
 </BlogLayout>
 

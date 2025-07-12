@@ -1,27 +1,106 @@
 import BlogLayout from "../bloglayout";
-
+import Code from "../cmp/code/code"
 export const metadata = {
   title: "Utility App to track coding contests (Expo)",
-  description: "a normal android add that tracks contests and reminds me",
+  description: "a normal android add that tracks contests and reminds me ",
   published: "11/07/2025",
   slug: "contestapp",
 };
 
 <BlogLayout metadata={metadata}>
-    I was getting burned out grinding LeetCode and GFG daily solving 10 questions a day just to climb my college leaderboard. It was draining.
+  [github](https://github.com/0xamitr/contestWatch)
+  
+  I was thinking to start giving **contests**, griding random questions was getting boring at this point; but then I had an idea for an app.
+  
+  Is there a system right now that shows all the upcoming coding contests at one single place? Maybe, there is but peep this.. 
+  Is there a system that works mostly **offline**, has **notifications** and **reminders** ?
+  
+  I couldn't find it, so I thought of building one. Here, it is.
+  
+  ## FrontEnd
+    1. React Native
+    2. Fetches data from API every 24 hours
+    3. A background tasks runs every [15 minutes](https://developer.android.com/topic/libraries/architecture/workmanager) to try and fetch the data.
+        - every 15 minutes check when the last update was.
+        - If the last update was more than 24 hours ago, call the API again.
+        - store the data in async storage, update the lastupdated variable.
+        - schedule a notification for 7am with the number of contests on that day.
+  
+  ## BackEnd
+    1. Golang
+    2. Gyn
+    3. Nginx
+  
+  # AI is not your friend
+  As a self proclaimed AI enjoyer and exploiter, I can comfortably say that LLM's are not there yet; and all it took me to realise that was to work on something 
+  that was badly documented.
+  LLM's are only good when there is a vast amount of documentation, public discussion on the internet. Otherwise, the LLM's will hallucinate like a crazy bitch that'll
+  tell you that the earth is flat and will make you believe it.
 
-    One day, I thought: instead of mindlessly choosing questions to solve, why not switch to contests? 
-    They’re focused, time-bound, and more fun. Most importantly, they don’t require the same daily time commitment.
+  Some examples here,
 
-    So I went to LeetCode, then Codeforces, CodeChef, and finally GFG (which had discontinued contests at the time), 
-    checking when the next contest was. That’s when the idea hit me; Why not build an app that shows all upcoming contests in one place?
+  <Code code={`
+    \`\`\`tsx title="notifications.tsx" showLineNumbers
+      trigger: {
+        type: 'daily',
+        hour: 7,
+        minute: 0
+      } as Notifications.DailyTriggerInput
+    });
+  `} />
+  It tooke me hours of debugging and looking at the type definition files for the library to figure out that there was a daily notification type.
+  AI only made the problem worse by hallucinating. The reason? my guess would be because of lack of documentation due to a new update to the library.
 
-    I built a React Native app (Android only; I don’t care about iOS and some functionality like notifications and background tasks 
-    doesn’t work well on web anyway).
+  I gave up on LLM's after going round and round for hours trying to get background tasks to work, if only I just went deep into the github repo at the very start; 
+  get your hands dirty, people.
 
-    For the backend, I wrote a simple API in Go; my first time using the language. It was a solid learning experience.
+  # Background tasks
+  Now that brings me to the background tasks which to be real was the biggest pain in my ass. I used [expo-task-manager]("https://docs.expo.dev/versions/latest/sdk/background-task/)
+  and one thing I am sure of is that it's a badly documented mess.
+  <Code code={`
+  \`\`\`tsx title="background.tsx" showLineNumbers
+  try {
+    console.log("registering background task");
+    return BackgroundTask.registerTaskAsync(TASK_NAME, {
+      minimumInterval: 15,
+    })
+  }
+  `} />
+  Please ChatGPT, deepseek and gemini the minimumInterval is in minutes and not in seconds. I beg you to use this blog to train your stupid ass.
 
-    Now, the app fetches contests from major platforms and sends me a notification every morning at 7AM telling me 
-    how many contests are scheduled for the day. No more jumping across sites.
+  Background tasks are cool and implementing them I somewhat learned how much control apps have on the OS, the restrictions IOS and android apply on there apps.
+
+  # How notifications work right now
+  As of today, a notification is scheduled every time a background task runs (ideally every 15 minutes) and a notification has not beend already scheduled; 
+  but due to OS restrictions that 15 minutes is only an indication to the OS. 
+  A notification would be scheduled for 7 am after calculating the number of contests on that day.
+  ## A problem
+  Notification could be scheduled at 11pm for the next day @7am or the notification could be scheduled at 6am for the same day @7am.
+  
+  If the notification is scheduled at 11pm, the number of contests would be calculated for the preceding day and since the notification scheduler calculates the 
+  value of contests at compile time, this is a no go.
+  
+  Here is what I figured,
+  <Code code={`
+  \`\`\`tsx "noti.tsx"
+  if (storedData) {
+      JSON.parse(storedData).forEach((contest: any) => {
+        const d1 = new Date(contest.start);
+        const d2 = new Date()
+        if (d2.getHours() > 7) {
+          d2.setDate(d2.getDate() + 1);
+        }
+        if (
+          d1.getFullYear() === d2.getFullYear() &&
+          d1.getMonth() === d2.getMonth() &&
+          d1.getDate() === d2.getDate()
+        ) {
+          contestsToday += 1;
+        }
+      });
+    }
+  `}/>
+  This piece of code checks if we are past 7am and if thats true the number of contests are calculated for the next day and then the notification is 
+  scheduled.
 </BlogLayout>
 
