@@ -19,6 +19,9 @@
   }
 }
 
+* {
+box-sizing: border-box;
+}
 @layer base{
 
     body {
@@ -52,7 +55,7 @@ pre {
 }
 
 code {
-  @apply text-sm md:text-base !leading-loose;
+  @apply text-sm md:text-base !leading-loose overflow-x-scroll;
 }
 
 pre > code {
@@ -138,8 +141,4 @@ pre,
 code,
 figure {
   @apply overflow-x-auto;
-}
-
-article p {
-  @apply leading-9;
 }

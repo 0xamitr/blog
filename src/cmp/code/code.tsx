@@ -10,7 +10,7 @@ export default async function Code({ code }: { code: string }) {
   const highlightedCode = await highlightCode(code);
   return (
     <section
-      className="not-prose"
+      className="not-prose overfall-x-scroll"
       dangerouslySetInnerHTML={{
         __html: highlightedCode,
       }}
