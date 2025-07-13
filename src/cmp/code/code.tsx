@@ -9,8 +9,9 @@ import { transformerCopyButton } from '@rehype-pretty/transformers';
 export default async function Code({ code }: { code: string }) {
   const highlightedCode = await highlightCode(code);
   return (
-    <section
-      className="not-prose overfall-x-scroll"
+    <div
+      className="not-prose w-full"
+      style={{ maxWidth: '100%', overflow: 'hidden' }}
       dangerouslySetInnerHTML={{
         __html: highlightedCode,
       }}
